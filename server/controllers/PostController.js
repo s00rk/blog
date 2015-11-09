@@ -5,7 +5,7 @@ module.exports =
 {
 
 	findAllPosts: function(req, res){
-		Post.find(function(err, posts){
+		Post.find().populate('author').exec(function(err, posts){
 			moment.locale('es');
 			if(!err) res.render('inicio', { 'posts': posts, 'moment': moment });
 			else console.log('ERROR: ' + err);

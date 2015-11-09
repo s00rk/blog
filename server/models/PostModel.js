@@ -1,5 +1,7 @@
 var mongoose	= require('mongoose'),
-	Schema		= mongoose.Schema;
+	Schema		= mongoose.Schema,
+	User		= require('./UserModel'),
+	Tag 		= require('./TagModel');
 
 var PostModel = new Schema({
 	title: { type: String, required: true, unique: true },

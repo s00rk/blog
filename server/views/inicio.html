@@ -19,11 +19,11 @@
 	{% for post in posts %}
 		<article class="padding">
 			<header class="excerpt">
-				<h5><a href="/article/{{post.slug}}/">{{post.title}}</a></h5>
+				<h5><a class="title_preview" href="/article/{{post.slug}}/">{{post.title}}</a></h5>
 			</header>
 
 			<div class="preview">
-				<p>{{post.body|upper}} <a href="/article/{{post.slug}}/"><span class="fa fa-angle-double-right"></span></a></p>
+				<p>{{post.body|truncate(400)}} <a href="/article/{{post.slug}}/"><span class="fa fa-angle-double-right"></span></a></p>
 			</div>
 
 			<footer class="author">

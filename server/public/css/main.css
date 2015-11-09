@@ -86,9 +86,13 @@ footer>div>div>div>p, footer>div>div>div:last-child>p{
 .articulos{
 	max-width: 900px;
 }
-
+.title_preview{
+	font-size: 1.5rem;
+	font-weight: 500;;
+}
 .preview{
 	font-weight: 300;
+	font-size: 1.2rem;
 }
 article h5>a:hover{
 	text-decoration: underline;
