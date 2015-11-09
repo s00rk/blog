@@ -17,13 +17,13 @@ mongoose.connect('mongodb://s00rk:saske321._password@75.126.80.16:16000/s00rkblo
 	}
 );
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views/');
 nunjucks.setup({
-	autoescape: true,
+	autoescape: false,
 	watch: true
 }, app);
 app.use('/static', express.static(__dirname + '/public'));

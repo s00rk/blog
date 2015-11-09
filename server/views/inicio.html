@@ -1,4 +1,51 @@
 {% extends "base.html" %}
 
 {% block contenido %}
+<div class="content" style="background-image: url('/static/images/home.jpg')">
+	<center>
+		<p>
+			<h1>Victor Rivera | Developer</h1>
+			<span>
+				<p>Articulos relacionados a las tecnologias de hoy día, por ejemplo:</p>
+				<p>Html5, CSS3, Javascript, NodeJs, Python, PHP, MongoDB, PostgreSQL, etc.</p>
+			</span>
+		</p>
+	</center>
+</div>
+
+
+<div class="container articulos">
+
+	{% for post in posts %}
+		<article class="padding">
+			<header class="excerpt">
+				<h5><a href="/article/{{post.slug}}/">{{post.title}}</a></h5>
+			</header>
+
+			<div class="preview">
+				<p>{{post.body|upper}} <a href="/article/{{post.slug}}/"><span class="fa fa-angle-double-right"></span></a></p>
+			</div>
+
+			<footer class="author">
+				<div class="author-thumb inline middle">
+					<img src="{{post.author.photo}}" alt="{{post.author.firstName}} {{post.author.lastName}}" class="border circle">
+				</div>
+
+				<div class="inline middle">
+					Escrito por <a href="/author/{{post.author.username}}/">{{post.author.firstName}} {{post.author.lastName}}</a> |
+					<span class="fa fa-folder-open-o"></span>
+					&nbsp;
+					{% for tag in post.tags %}
+						<a href="/tag/{{tag.slug}}/">{{tag.name}}</a>
+					{% endfor %}
+					<br />
+					<time datetime="{{moment(post.createdAt).format('YYYY-MM-DD')}}">
+						{{moment(post.createdAt).format('DD, MMMM, YYYY')}}
+					</time>
+				</div>
+			</footer>
+		</article>
+		<hr />
+	{% endfor %}
+</div>
 {% endblock %}

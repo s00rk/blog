@@ -31,7 +31,7 @@ UserModel.pre('save', function(next) {
 	});
 
 });
-
+//$2a$10$fuJFTUs2S0SHVDxriGglbONhp6BaXHO4pUEb58.NOzZ.r3AVTxOzu
 UserModel.methods.comparePassword = function(candidatePassword, cb) {
 	bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
 		if (err) return cb(err);

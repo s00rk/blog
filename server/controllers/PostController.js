@@ -1,11 +1,13 @@
-var Post = require('../models/PostModel');
+var Post 	= require('../models/PostModel'),
+	moment 	= require('moment');
 
 module.exports =
 {
 
 	findAllPosts: function(req, res){
 		Post.find(function(err, posts){
-			if(!err) res.render('inicio', { 'posts': posts });
+			moment.locale('es');
+			if(!err) res.render('inicio', { 'posts': posts, 'moment': moment });
 			else console.log('ERROR: ' + err);
 		});
 	},
@@ -20,10 +22,12 @@ module.exports =
 	addPost: function(req, res){
 		var newpost = new Post({
 			title: req.body.title,
-			body: req.body.body,
-
-
+			body: req.body.body
 		});
-	}
+		newpost.save(function(err){
+			if(!err) res.send('Post Publicado');
+			else res.send('ERROR: ' + err);
+		})
+	},
 
 };
