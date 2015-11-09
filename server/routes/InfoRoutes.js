@@ -1,10 +1,11 @@
-module.exports = function( ) {
+module.exports = function() {
 	var express = require( "express" ),
 		router = express.Router(),
 		controller = require('../controllers/InfoController');
 
 	router.route('/contacto').
-		get( controller.contact );
+		get( controller.contact ).
+		post( controller.sendMail );
 
 
 	router.route('/sobre-mi').

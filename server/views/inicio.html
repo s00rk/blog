@@ -48,4 +48,26 @@
 		<hr />
 	{% endfor %}
 </div>
+
+{% if flash != "" %}
+<div id="modal1" class="modal">
+	<div class="modal-content">
+		<h4>{{flash.title}}</h4>
+		<p>{{flash.message}}</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	{% if flash != "" %}
+	<script>
+	$(document).on('ready', function(){
+		$('#modal1').openModal();
+	});
+	</script>
+	{% endif %}
 {% endblock %}
