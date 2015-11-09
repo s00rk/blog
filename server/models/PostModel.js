@@ -2,13 +2,26 @@ var mongoose	= require('mongoose'),
 	Schema		= mongoose.Schema;
 
 var PostModel = new Schema({
-	title: String,
-	body: String,
-	views: Number,
+	title: { type: String, required: true, unique: true },
+	body: { type: String, required: true },
+	views: { type: Number, default: 0 },
 	createdAt: { type: Date, default: Date.now },
 	slug: String,
-	category: String,
-	author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+	author: { type: Schema.Types.ObjectId, ref: 'User' }
+});
+
+
+PostModel.pre('save', function(next) {
+	var post = this;
+
+	if (!post.isModified('title')) return next();
+
+	post.slug = post.title.toLowerCase()
+		.replace(/[^\w ]+/g,'')
+		.replace(/ +/g,'-');
+
+	next();
 });
 
 module.exports = mongoose.model('Post', PostModel);

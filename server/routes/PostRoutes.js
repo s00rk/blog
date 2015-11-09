@@ -4,7 +4,12 @@ module.exports = function( ) {
 		controller = require('../controllers/PostController');
 
 	router.route('/').
-		get( controller.findAllPosts );
+		get( controller.findAllPosts ).
+		post( controller.addPost );
+
+
+	router.route('/:slug').
+		get( controller.findPost );
     
 	return router;
 };

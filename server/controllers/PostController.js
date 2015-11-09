@@ -5,7 +5,7 @@ module.exports =
 
 	findAllPosts: function(req, res){
 		Post.find(function(err, posts){
-			if(!err) res.send(posts);
+			if(!err) res.render('inicio', { 'posts': posts });
 			else console.log('ERROR: ' + err);
 		});
 	},
@@ -18,7 +18,12 @@ module.exports =
 	},
 
 	addPost: function(req, res){
-		Post
+		var newpost = new Post({
+			title: req.body.title,
+			body: req.body.body,
+
+
+		});
 	}
 
 };

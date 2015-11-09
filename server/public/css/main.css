@@ -1,0 +1,19 @@
+nav li:after{
+	content: " | ";
+	position: absolute;
+	margin-top: -64px;
+	color: white;
+	font-size: large;
+}
+
+nav li:first-child:after{
+	content: "";
+}
+
+.footer-copyright h5 a{
+	color: inherit;
+}
+
+footer>div>div>div>p, footer>div>div>div:last-child>p{
+	font-weight: 300;
+}
