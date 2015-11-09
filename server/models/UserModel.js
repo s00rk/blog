@@ -1,5 +1,6 @@
 var mongoose	= require('mongoose'),
-	Schema		= mongoose.Schema;
+	Schema		= mongoose.Schema,
+	Post 		= require('./PostModel');
 
 var bcrypt		= require('bcrypt');
 
@@ -38,5 +39,16 @@ UserModel.methods.comparePassword = function(candidatePassword, cb) {
 		cb(null, isMatch);
 	});
 };
+
+UserModel.virtual('fullName').get(function(){
+	return this.firstName + ' ' + this.lastName;
+});
+
+UserModel.set('toJSON', {
+	virtuals: true
+});
+UserModel.set('toObject', {
+	virtuals: true
+});
 
 module.exports = mongoose.model('User', UserModel);

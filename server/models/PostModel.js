@@ -26,4 +26,11 @@ PostModel.pre('save', function(next) {
 	next();
 });
 
+PostModel.set('toJSON', {
+	virtuals: true
+});
+PostModel.set('toObject', {
+	virtuals: true
+});
+
 module.exports = mongoose.model('Post', PostModel);

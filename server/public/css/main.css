@@ -1,3 +1,6 @@
+body{
+	background: #ededed;
+}
 a{
 	color: darkslategray;
 }
@@ -96,4 +99,12 @@ footer>div>div>div>p, footer>div>div>div:last-child>p{
 }
 article h5>a:hover{
 	text-decoration: underline;
+}
+.article{
+	height: 300px;
+}
+.article h3{
+	position: absolute;
+	margin-top: 4%;
+	margin-left: 1%;
 }

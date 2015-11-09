@@ -33,6 +33,7 @@ app.use('/static', express.static(__dirname + '/public'));
 
 
 app.use('/', require('./routes/PostRoutes')() );
+app.use('/', require('./routes/InfoRoutes')() );
 
 
 

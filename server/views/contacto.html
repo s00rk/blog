@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="content article" style="background-image: url('/static/images/contact.png'); background-position: 50% 315%;">
+	<center class="container">
+		<p>
+			<h3>Contacto</h3>
+		</p>
+	</center>
+</div>
+
+<div class="container articulos">
+	<p class="preview">
+		Si deseas estar en contacto puedes hacerlo mediante <strong><a href="https://twitter.com/s00rk">Twitter</a></strong>, tambien si deseas puedes hacerlo mediante este formulario.
+	</p>
+	<p>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<i class="material-icons prefix">account_circle</i>
+						<input id="icon_prefix" type="text" class="validate">
+						<label for="icon_prefix">Nombre</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="material-icons prefix">email</i>
+						<input id="icon_email" type="email" class="validate">
+						<label for="icon_email">Email</label>
+					</div>
+					<div class="input-field col s12">
+						<textarea id="textarea1" class="materialize-textarea" style="height:9em;"></textarea>
+						<label for="textarea1">Mensaje</label>
+					</div>
+				</div>
+				<button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+					<i class="material-icons right">send</i>
+				</button>
+			</form>
+		</div>
+	</p>
+</div>
+{% endblock %}

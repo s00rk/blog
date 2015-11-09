@@ -8,7 +8,7 @@ module.exports = function( ) {
 		post( controller.addPost );
 
 
-	router.route('/:slug').
+	router.route('/articulo/:slug').
 		get( controller.findPost );
     
 	return router;

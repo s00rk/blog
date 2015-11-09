@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block contenido %}
 <div class="content" style="background-image: url('/static/images/home.jpg')">
@@ -28,11 +28,11 @@
 
 			<footer class="author">
 				<div class="author-thumb inline middle">
-					<img src="{{post.author.photo}}" alt="{{post.author.firstName}} {{post.author.lastName}}" class="border circle">
+					<img width="34" height="34" src="{{post.author.photo}}" alt="{{post.author.fullName}}" class="border circle">
 				</div>
 
 				<div class="inline middle">
-					Escrito por <a href="/author/{{post.author.username}}/">{{post.author.firstName}} {{post.author.lastName}}</a> |
+					Escrito por <a href="/author/{{post.author.username}}/">{{post.author.fullName}}</a> |
 					<span class="fa fa-folder-open-o"></span>
 					&nbsp;
 					{% for tag in post.tags %}
