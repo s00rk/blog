@@ -1,20 +1,26 @@
 var express = require('express'),
 	app		= express(),
 	server	= require('http').Server(app),
-	io		= require('socket.io')(server);
+	io		= require('socket.io')(server),
+	mongoose = require('mongoose');
 
-mongoose.connect('mongoose://75.126.80.16:16000/s00rk_blog', function(err, res){
-	if(err) console.log('ERROR: ' + err);
-	else console.log('Conextion to BD succesfully!');
-});
+var bodyParser = require('body-parser'),
+	multer  = require('multer'),
+	upload = multer({ dest: 'uploads/' });
 
 
-app.configure(function(){
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-	app.use(express.router);
-});
+mongoose.connect('mongodb://s00rk:saske321._password@75.126.80.16:16000/s00rkblog', 
+	function(err, res){
+		if(err) console.log('ERROR: ' + err);
+		else console.log('Conextion to BD succesfully!');
+	}
+);
 
-server.listen(8080, function(){
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/', require('./routes/PostRoutes')() );
+
+server.listen(8000, function(){
 	console.log('Server Initialized');
 });

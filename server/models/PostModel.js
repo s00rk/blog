@@ -1,12 +1,14 @@
 var mongoose	= require('mongoose'),
 	Schema		= mongoose.Schema;
 
-var Post = new Schema({
+var PostModel = new Schema({
 	title: String,
 	body: String,
 	views: Number,
-	date: { type: Date, default: Date.now },
+	createdAt: { type: Date, default: Date.now },
 	slug: String,
 	category: String,
-	author: 
+	author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
+
+module.exports = mongoose.model('Post', PostModel);

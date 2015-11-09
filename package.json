@@ -23,9 +23,15 @@
   },
   "homepage": "https://github.com/s00rk/blog#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.5",
     "mongoose": "^4.2.4",
-    "socket.io": "^1.3.7"
+    "multer": "^1.1.0",
+    "socket.io": "^1.3.7",
+    "stylus": "^0.52.4"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"
