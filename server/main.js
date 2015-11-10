@@ -9,6 +9,8 @@ var express 	= require('express'),
 	session 	= require('express-session'),
 	flash 		= require('connect-flash');
 
+var MongoStore = require('connect-mongo')(session);
+
 var bodyParser 	= require('body-parser'),
 	multer  	= require('multer'),
 	upload 		= multer({ dest: __dirname + '/public/uploads/' });
@@ -36,12 +38,10 @@ mailer.extend(app, {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cookieParser('s00rkblog'));
+app.use(cookieParser());
 app.use(session({
-	cookie: { maxAge: 60000 },
-	resave: true,
-    saveUninitialized: true,
-    secret: 's00rkblog'
+    secret: 's00rkblog',
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.use(flash());
 
@@ -56,7 +56,10 @@ app.use('/static', express.static(__dirname + '/public'));
 
 
 
-
+app.use(function(req, res, next) {
+	res.locals.session = req.session;
+	next();
+});
 
 app.use('/', require('./routes/PostRoutes')() );
 app.use('/', require('./routes/InfoRoutes')() );

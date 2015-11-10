@@ -1,4 +1,6 @@
-var app = require('../main.js');
+var app 	= require('../main.js');
+var User 	= require('../models/UserModel');
+var bcrypt		= require('bcrypt');
 module.exports =
 {
 
@@ -16,7 +18,54 @@ module.exports =
 			subject: 'Contacto [ ' + req.body.email + ' ]'
 		}, function (err) {
 			req.flash('info', '{"title":" ", "message":"Mensaje Enviado!"}');
-		res.redirect('/');
+			res.redirect('/');
+		});
+	},
+
+	login: function(req, res){
+		if(req.session.logged)
+		{
+			res.redirect('/');
+			return;
+		}
+
+		var flash = req.flash('info');
+		if( flash.length != 0 )
+		{
+			flash = JSON.parse( flash );
+		}
+		res.render('login', { 'flash': flash });
+	},
+
+	login_post: function(req, res){
+		User.findOne({ username: req.body.username }, function(err, user){
+			if(err)
+			{
+				req.flash('info', '{"message": "'+err+'"}');
+				res.render('login');
+				return;
+			}else if(user == null){
+				req.flash('info', '{"message":"El Usuario No Existe!"}');
+				res.redirect('/login');
+				return;
+			}
+
+			console.log(user);
+			bcrypt.compare(req.body.password, user.password, function(err, isMatch) {
+				if(err)
+				{
+					req.flash('info', '"message": "'+err+'"}');
+					res.redirect('/login');
+				}else if(isMatch){
+					req.session.user = user;
+					req.session.logged = true;
+					req.session.save();
+					res.redirect('/');
+				}else{
+					req.flash('info', '{"message":"Contraseña Incorrecta!"}');
+					res.redirect('/login');
+				}
+			});
 		});
 	}
 

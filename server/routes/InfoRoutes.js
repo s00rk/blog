@@ -10,6 +10,10 @@ module.exports = function() {
 
 	router.route('/sobre-mi').
 		get( controller.about );
+
+	router.route('/login').
+		get( controller.login ).
+		post( controller.login_post );
     
 	return router;
 };
