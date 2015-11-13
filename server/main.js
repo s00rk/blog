@@ -16,10 +16,10 @@ var bodyParser 	= require('body-parser'),
 	upload 		= multer({ dest: __dirname + '/public/uploads/' });
 
 
-mongoose.connect('mongodb://s00rk:saske321._password@75.126.80.16:16000/s00rkblog', 
+mongoose.connect('mongodb://s00rk:password@host:16000/s00rkblog', 
 	function(err, res){
 		if(err) console.log('ERROR: ' + err);
-		else console.log('Conextion to BD succesfully!');
+		else console.log('Connection to BD succesfully!');
 	}
 );
 
