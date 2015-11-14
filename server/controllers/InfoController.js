@@ -9,7 +9,7 @@ module.exports =
 	},
 
 	contact: function(req, res){
-		res.render('contacto');
+		res.render('contacto', { 'csrfToken': req.csrfToken() });
 	},
 
 	sendMail: function(req, res){
@@ -34,7 +34,7 @@ module.exports =
 		{
 			flash = JSON.parse( flash );
 		}
-		res.render('login', { 'flash': flash });
+		res.render('login', { 'flash': flash, 'csrfToken': req.csrfToken() });
 	},
 
 	login_post: function(req, res){
@@ -46,16 +46,15 @@ module.exports =
 				return;
 			}else if(user == null){
 				req.flash('info', '{"message":"El Usuario No Existe!"}');
-				res.redirect('/login');
+				res.redirect('/entrar');
 				return;
 			}
 
-			console.log(user);
 			bcrypt.compare(req.body.password, user.password, function(err, isMatch) {
 				if(err)
 				{
 					req.flash('info', '"message": "'+err+'"}');
-					res.redirect('/login');
+					res.redirect('/entrar');
 				}else if(isMatch){
 					req.session.user = user;
 					req.session.logged = true;
@@ -63,7 +62,7 @@ module.exports =
 					res.redirect('/');
 				}else{
 					req.flash('info', '{"message":"Contraseña Incorrecta!"}');
-					res.redirect('/login');
+					res.redirect('/entrar');
 				}
 			});
 		});

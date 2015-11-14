@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="content article" style="background-image: url('{{post.image}}'); background-position: 50% 315%;">
+	<center class="container">
+		<p>
+			<h3>{{post.title}}</h3>
+		</p>
+	</center>
+</div>
+
+<div class="container articulos">
+	{{post.body|safe}}
+
+	<br />
+
+	<div id="disqus_thread"></div>
+	<script>
+		var disqus_config = function () {
+			this.page.url = window.location;
+			this.page.identifier = '{{post.id}}';
+		};
+		(function() {  // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
+			s.src = '//s00rk.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	<noscript>
+		Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+	</noscript>
+</div>
+
+
+{% endblock %}

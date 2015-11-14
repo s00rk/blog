@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
+	<br /><br /><br />
 	<div class="container articulos">
 	<p>
 		<center>
@@ -25,9 +26,11 @@
 				</div>
 				<button class="btn waves-effect waves-light" type="submit" name="action">
 					Entrar					
-				</button>				
+				</button>
+				<input type="hidden" name="_csrf" value="{{csrfToken}}">				
 			</form>
 		</div>
 	</p>
 </div>
+<br /><br /><br />
 {% endblock %}

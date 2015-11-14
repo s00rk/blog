@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<br /><br /><br />
+<div class="container articulos">
+	<h5>Modificar Post</h5>
+	
+	<div class="row">
+		<form id="formulario" class="col s12" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<div class="input-field col s6">
+					<input name="title" placeholder="Titulo" id="title" type="text" class="validate" value="{{post.title}}"  required/>
+					<label for="title">Titulo</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<div class="file-field input-field">
+						<div class="btn">
+							<span>Imagen</span>
+							<input id="image" type="file" name="image" />
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<textarea name="body" id="textarea1">{{post.body}}</textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" name="publish" />
+					<label for="filled-in-box">Publicar?</label>
+				</div>
+			</div>
+			<button type="submit" class="btn waves-effect waves-light">
+				Guardar
+				<i class="material-icons right">send</i>
+			</button>
+			<input type="hidden" name="_csrf" value="{{csrfToken}}">
+		</form>
+	</div>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="/static/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	$(document).on('ready', function(){
+
+		var readImage = function() {
+			if ( this.files && this.files[0] ) {
+				var FR = new FileReader();
+				FR.onload = function(e) {
+					$('#image_base').val( e.target.result );
+				};       
+				FR.readAsDataURL( this.files[0] );
+			}
+		}		
+		
+		CKEDITOR.replace( 'textarea1', { 
+			codeSnippet_theme : 'monokai_sublime',
+			codeSnippet_languages: {
+				javascript: 'JavaScript',
+				php: 'PHP'
+			}
+		});
+
+		// $('#formulario').on('submit', function (e){
+		// 	e.preventDefault();
+		// 	$.ajax({
+		// 		url: '/admin/post/{{post.slug}}',
+		// 		type: 'PUT',
+		// 		data: {
+		// 			'_csrf': '{{csrfToken}}',
+		// 			'title': $('#title').val(),
+		// 			'body': $('#body').val(),
+		// 			'image': $('#image_base').val()
+		// 		},
+		// 		success: function(result) {
+		// 			console.log(result);
+		// 			window.location = window.location;
+		// 		}
+		// 	});
+		// });
+
+
+		$("#image").change( readImage );
+	});
+</script>
+{% endblock %}

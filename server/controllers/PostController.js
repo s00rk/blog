@@ -19,20 +19,9 @@ module.exports =
 
 	findPost: function(req, res){
 		Post.find({ slug: req.params.slug }, function(err, post){
-			if(!err) res.send(post);
+			if(!err) res.render('articulo', { 'post': post });
 			else console.log('ERROR: ' + err);
 		});
-	},
-
-	addPost: function(req, res){
-		var newpost = new Post({
-			title: req.body.title,
-			body: req.body.body
-		});
-		newpost.save(function(err){
-			if(!err) res.send('Post Publicado');
-			else res.send('ERROR: ' + err);
-		})
 	},
 
 };

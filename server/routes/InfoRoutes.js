@@ -11,7 +11,7 @@ module.exports = function() {
 	router.route('/sobre-mi').
 		get( controller.about );
 
-	router.route('/login').
+	router.route('/entrar').
 		get( controller.login ).
 		post( controller.login_post );
     

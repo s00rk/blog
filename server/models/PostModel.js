@@ -6,11 +6,13 @@ var mongoose	= require('mongoose'),
 var PostModel = new Schema({
 	title: { type: String, required: true, unique: true },
 	body: { type: String, required: true },
+	image: { type: String, default: '/static/images/contact.png' },
 	views: { type: Number, default: 0 },
 	createdAt: { type: Date, default: Date.now },
 	slug: String,
 	tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-	author: { type: Schema.Types.ObjectId, ref: 'User' }
+	author: { type: Schema.Types.ObjectId, ref: 'User' },
+	publish: { type: Boolean, required: true, default: true }
 });
 
 

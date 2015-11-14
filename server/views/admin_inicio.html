@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<br /><br /><br />	
+<div class="container articulos">
+	<h4>Admin Panel</h4>
+	<table class="bordered responsive-table">
+		<thead>
+			<tr>
+				<th data-field="image">Imagen</th>
+				<th data-field="title">Titulo</th>
+				<th data-field="author">Autor</th>
+				<th data-field="date">Fecha</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for post in posts %}
+			<tr>
+				<td><img class="responsive-img" src="{{post.image}}" width="100" /></td>
+				<td>{{post.title}}</td>
+				<td>{{post.author.fullName}}</td>
+				<td>{{moment(post.createdAt).format('DD, MMMM, YYYY h:m A')}}</td>
+				<td>
+					<a href="/admin/post/{{post.slug}}" class="waves-effect waves-light btn" style="height: 26px; line-height: 26px; padding: 0px 16px;">Ver</a>
+					<br /><br />
+					<a class="waves-effect waves-light btn red modal-trigger" href="#modal1" style="height: 26px; line-height: 26px; padding: 0px 16px;" data-title="{{post.title}}" data-slug="{{post.slug}}">Eliminar</a>
+				</td>
+			</tr>
+			{% endfor %}			
+		</tbody>
+	</table>
+</div>
+
+<div id="modal1" class="modal">
+	<div class="modal-content">
+		<h4>¿Esta seguro que desea eliminar este Post?</h4>
+		<p id="title_post"></p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+		<a id="eliminarPost" href="/admin/" class="modal-action modal-closewaves-effect waves-light btn red">Aceptar</a>
+		<input type="hidden" id="slug_post" name="slug" />
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$(document).on('ready', function(){
+	$('.modal-trigger').leanModal();
+
+	$('.modal-trigger').on('click', function (e){
+		var title = $(this).attr('data-title');
+		var slug = $(this).attr('data-slug');
+		$('#title_post').html( title );
+		$('#slug_post').val( slug );
+	});
+
+	$('#eliminarPost').on('click', function (e){
+		var slug = $('#slug_post').val();
+		$.ajax({
+			url: '/admin/post/' + slug,
+			type: 'DELETE',
+			data: {
+				'_csrf': '{{csrfToken}}'
+			},
+			success: function(result) {
+				console.log(result);
+				window.location = '/admin/';
+			}
+		});
+	});
+});
+</script>
+{% endblock %}

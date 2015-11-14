@@ -4,8 +4,7 @@ module.exports = function( ) {
 		controller = require('../controllers/PostController');
 
 	router.route('/').
-		get( controller.findAllPosts ).
-		post( controller.addPost );
+		get( controller.findAllPosts );
 
 
 	router.route('/articulo/:slug').
