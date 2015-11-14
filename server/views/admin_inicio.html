@@ -4,6 +4,11 @@
 <br /><br /><br />	
 <div class="container articulos">
 	<h4>Admin Panel</h4>
+	<center>
+		{% if flash != "" %}
+		<div class="card-panel teal lighten-2" style="width: 50%; color:white;">{{flash.message}}</div>
+		{% endif %}
+	</center>
 	<table class="bordered responsive-table">
 		<thead>
 			<tr>

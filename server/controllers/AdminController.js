@@ -1,6 +1,7 @@
 var Post 	= require('../models/PostModel'),
 	moment 	= require('moment'),
-	User 	= require('../models/UserModel');
+	User 	= require('../models/UserModel'),
+	fs 		= require('fs');
 
 module.exports =
 {
@@ -23,13 +24,10 @@ module.exports =
 	},
 
 	addPost: function(req, res){
-		console.log('HOL');
-		console.log(req.body);
 		var newpost = new Post({
 			title: req.body.title,
 			body: req.body.body
 		});
-		console.log(newpost);
 		newpost.save(function(err){
 			if(!err) {
 				req.flash('info', '{"message": "Post Agregado"}');
@@ -46,9 +44,29 @@ module.exports =
 		});
 	},
 
-	editPost: function(req, res){
-		Post.find({ slug: req.params.slug }, function(err, post){
+	editPost: function(req, res){		
+		Post.findOne({ slug: req.params.slug }, function(err, post){
 			if(!err) {
+				post.title = req.body.title;
+				post.body = req.body.body;
+				post.publish = ((req.body.publish == 'on') ? true : false);
+				post.author = req.session.user;
+
+
+				if(req.file)
+				{
+					var ext = req.file.originalname.substr(req.file.originalname.lastIndexOf('.') + 1);
+					var newfile = req.file.path.replace( req.file.filename, 'post_' + post.id + '.' + ext );
+					fs.unlink( post.image, function (err){
+						fs.rename(req.file.path, newfile, function(err){});
+					});
+					
+					post.image = '/static/uploads/post_' + post.id + '.' + ext;
+				}
+
+				post.save();
+
+
 				req.flash('info', '{"message": "Post Modificado"}');
 				res.redirect('/admin');
 			}
@@ -58,7 +76,6 @@ module.exports =
 
 	findPost: function(req, res){
 		Post.findOne({ slug: req.params.slug }, function(err, post){
-			console.log(post);
 			if(!err) res.render('admin_edit', { 'post': post, 'csrfToken': req.csrfToken() });
 			else {
 				req.flash('info', '{"message": "Post No Existe"}');

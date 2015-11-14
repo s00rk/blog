@@ -18,8 +18,12 @@ module.exports =
 	},
 
 	findPost: function(req, res){
-		Post.find({ slug: req.params.slug }, function(err, post){
-			if(!err) res.render('articulo', { 'post': post });
+		Post.findOne({ slug: req.params.slug }, function(err, post){
+			if(!err) {
+				post.views = parseInt(post.views) + 1;
+				post.save();
+				res.render('articulo', { 'post': post });
+			}
 			else console.log('ERROR: ' + err);
 		});
 	},

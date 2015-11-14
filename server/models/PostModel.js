@@ -19,7 +19,10 @@ var PostModel = new Schema({
 PostModel.pre('save', function(next) {
 	var post = this;
 
-	if (!post.isModified('title')) return next();
+	if (!post.isModified('title')){
+		next();
+		return;	
+	} 
 
 	post.slug = post.title.toLowerCase()
 		.replace(/[^\w ]+/g,'')

@@ -47,6 +47,7 @@ app.use(session({
     secret: 's00rkblog',
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+
 app.use(flash());
 
 
@@ -61,7 +62,6 @@ app.use('/static', express.static(__dirname + '/public'));
 
 
 app.use(function(req, res, next) {
-	console.log(req.method);
 	res.locals.session = req.session;
 	next();
 });
@@ -72,6 +72,7 @@ var isAdmin = function(req, res, next){
 	else res.redirect('/entrar');
 };
 
+app.post('/admin/post/:slug', upload.single('image'));
 app.use(csrfProtection);
 
 app.use('/', require('./routes/PostRoutes')() );
