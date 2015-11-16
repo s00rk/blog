@@ -23,7 +23,7 @@
 			</header>
 
 			<div class="preview">
-				<p>{{post.body|truncate(400)}} <a href="/articulo/{{post.slug}}/"><span class="fa fa-angle-double-right"></span></a></p>
+				<p>{{post.body|escape|truncate(400)}} <a href="/articulo/{{post.slug}}/"><span class="fa fa-angle-double-right"></span></a></p>
 			</div>
 
 			<footer class="author">
@@ -47,6 +47,25 @@
 		</article>
 		<hr />
 	{% endfor %}
+	{% if max_page > 1 %}
+	<center>
+	<ul class="pagination">
+    	<li class="{% if page == p_page %}disabled{% else %}waves-effect{% endif %}">
+    		<a href="/page/{{p_page}}"><i class="material-icons">chevron_left</i></a>
+    	</li>
+		{% for i in range(1, max_page) %}
+			<li class="{% if page == i %}active{% else %}waves-effect{% endif %}">
+				<a href="/page/{{i}}">{{i}}</a>
+			</li>
+		{% endfor %}
+		<li class="{% if page == n_page %}disabled{% else %}waves-effect{% endif %}">
+			<a href="/page/{{n_page}}"><i class="material-icons">chevron_right</i></a>
+		</li>
+	</ul>
+	</center>
+	{% endif %}
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
 </div>
 
 {% if flash != "" %}

@@ -6,6 +6,8 @@ module.exports = function( ) {
 	router.route('/').
 		get( controller.findAllPosts );
 
+	router.route('/page/:page').
+		get( controller.findAllPosts );
 
 	router.route('/articulo/:slug').
 		get( controller.findPost );

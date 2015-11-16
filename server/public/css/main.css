@@ -88,6 +88,11 @@ footer>div>div>div>p, footer>div>div>div:last-child>p{
 
 .articulos{
 	max-width: 900px;
+	font-size: 1.1rem;
+letter-spacing: 0.01rem;
+font-weight: 300;
+color: rgb(77, 77, 77);
+line-height: 1.9rem;
 }
 .title_preview{
 	font-size: 1.5rem;
